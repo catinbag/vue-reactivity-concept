@@ -2,7 +2,7 @@
  * reactivity by proxy
  */
 
-const { Dependency } = require("./depencdency");
+const { Dependency } = require("./dependency");
 
 const target = {
   price: 10,
