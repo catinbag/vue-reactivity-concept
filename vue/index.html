@@ -1,0 +1,35 @@
+<html>
+  <head> </head>
+  <body>
+    <div id="app">
+      <label>Price: </label><input type="text" v-model="price" />
+      <br />
+      <label>Quantity: </label><input type="text" v-model="quantity" />
+      <br />
+      <label>Total Price: {{totalPrice}}</label>
+      <br />
+      <label>Price After Discount: {{discountedPrice}}</label>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        price: 10,
+        quantity: 2,
+        discount: 2,
+      },
+      computed: {
+        totalPrice: function () {
+          return this.price * this.quantity;
+        },
+        discountedPrice: function () {
+          return this.totalPrice - (this.totalPrice / 100) * this.discount;
+        },
+      },
+    });
+    console.log(app);
+    console.log(app._init);
+  </script>
+</html>
