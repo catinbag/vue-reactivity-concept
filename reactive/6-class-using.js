@@ -2,17 +2,7 @@
  * create class to encapsulate logic
  */
 
-class Dependency {
-  constructor() {
-    this.subscribers = new Set();
-  }
-  depend(targetComputaion) {
-    this.subscribers.add(targetComputaion);
-  }
-  notify() {
-    this.subscribers.forEach((c) => c());
-  }
-}
+const { Dependency } = require("./../shared");
 
 const data = {
   price: 10,
@@ -29,16 +19,14 @@ function defineReactiveProperties(obj) {
 
     Object.defineProperty(obj, key, {
       get() {
-        console.log(`value of ${key} is accessed`);
+        console.log(`get: ${key}`);
 
-        if (currentComputation !== null) {
-          dep.depend(currentComputation);
-        }
+        dep.depend(currentComputation);
 
         return internalValue;
       },
       set(newVal) {
-        console.log(`value of ${key} is mutated`);
+        console.log(`set: ${newVal} in ${key}`);
         internalValue = newVal;
         dep.notify();
       },
@@ -57,7 +45,25 @@ function registerComputation(computation) {
 let total = 0;
 const computeTotal = () => (total = data.price * data.quantity);
 
-registerComputation(computeTotal);
-console.log(total);
-data.price = 20;
-console.log(total);
+function firstCalc() {
+  console.log("firstCalc", total);
+}
+
+function updateState() {
+  data.price = 20;
+  console.log("updateState", total);
+}
+
+function addNewField() {
+  data.newField = 1; // dont trigger updating
+  console.log("addNewField", total);
+}
+
+function init() {
+  registerComputation(computeTotal);
+  firstCalc();
+  updateState();
+  addNewField();
+}
+
+init();

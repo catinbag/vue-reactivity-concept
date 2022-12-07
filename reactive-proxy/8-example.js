@@ -2,7 +2,7 @@
  * reactivity by proxy
  */
 
-const { Dependency } = require("./dependency");
+const { Dependency } = require("../shared/dependency");
 
 const target = {
   price: 10,
@@ -40,19 +40,25 @@ function registerComputation(fn) {
   currentComputeFn = null;
 }
 
-function changeState() {
-  proxy.price = 1;
-  console.log("last total", total);
-}
-
 function firstCalc() {
   console.log("firstCalc", total);
+}
+
+function changeState() {
+  proxy.price = 1;
+  console.log("changeState", total);
+}
+
+function addNewField() {
+  proxy.newField = "value42"; // trigger updating
+  console.log("addNewField", total);
 }
 
 function init() {
   registerComputation(computeFn);
   firstCalc();
   changeState();
+  addNewField();
 }
 
 init();
