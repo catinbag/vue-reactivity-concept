@@ -1,0 +1,2 @@
+- [closures](https://proglib.io/p/js-closures-1)
+- [vue](https://vuejs.org/guide/extras/reactivity-in-depth.html#how-reactivity-works-in-vue)
