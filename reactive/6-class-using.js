@@ -34,7 +34,7 @@ function defineReactiveProperties(obj) {
   });
 }
 
-defineReactiveProperties(data, currentComputation);
+defineReactiveProperties(data);
 
 function registerComputation(computation) {
   currentComputation = computation;
